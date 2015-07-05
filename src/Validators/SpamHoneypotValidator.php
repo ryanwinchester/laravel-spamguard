@@ -13,6 +13,6 @@ class SpamHoneypotValidator extends Validator
      */
     public function validate($request, $params = [])
     {
-        return $request->has('_guard_pot');
+        return ! $request->has('_guard_pot');
     }
 }

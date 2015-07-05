@@ -3,7 +3,6 @@
 namespace Fungku\SpamGuard\Services;
 
 use Fungku\SpamGuard\Exceptions\SpamGuardException;
-use Fungku\SpamGuard\SpamGuard;
 
 class HtmlGenerator
 {
@@ -12,13 +11,11 @@ class HtmlGenerator
      * @return string
      * @throws SpamGuardException
      */
-    public static function generate(array $options = [])
+    public static function generate(array $options)
     {
-        $availableElements = SpamGuard::filterElements($options);
-
         $elements = [];
 
-        foreach ($availableElements as $element) {
+        foreach ($options as $element) {
             $generator = '\\Fungku\\SpamGuard\\Html\\' . camel_case($element);
 
             if (! (new \ReflectionClass($generator))->isInstantiable()) {

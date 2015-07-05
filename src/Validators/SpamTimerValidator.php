@@ -3,6 +3,7 @@
 namespace Fungku\SpamGuard\Validators;
 
 use Fungku\SpamGuard\Config;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class SpamTimerValidator extends Validator
 {
@@ -15,7 +16,12 @@ class SpamTimerValidator extends Validator
      */
     public function validate($request, $params = [])
     {
-        $timeOpened = $this->encrypter->decrypt($request->get('_guard_opened'));
+        try {
+            $timeOpened = $this->encrypter->decrypt($request->get('_guard_opened'));
+        } catch (DecryptException $e) {
+            return false;
+        }
+
         $timeNow = time();
         $timeElapsed = $timeNow - $timeOpened;
 
