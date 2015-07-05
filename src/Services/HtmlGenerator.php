@@ -2,29 +2,32 @@
 
 namespace Fungku\SpamGuard\Services;
 
+use Fungku\SpamGuard\Config;
 use Fungku\SpamGuard\Exceptions\SpamGuardException;
 
 class HtmlGenerator
 {
     /**
-     * @param array $options
+     * @param  array $elements
      * @return string
      * @throws SpamGuardException
      */
-    public static function generate(array $options)
+    public static function generate($elements = [])
     {
-        $elements = [];
+        $elements = $elements ?: Config::$elements;
 
-        foreach ($options as $element) {
+        $html = [];
+
+        foreach ($elements as $element) {
             $generator = '\\Fungku\\SpamGuard\\Html\\' . camel_case($element);
 
             if (! (new \ReflectionClass($generator))->isInstantiable()) {
                 throw new SpamGuardException("Target class [$generator] is not instantiable.");
             }
 
-            $elements[] = app($generator)->html();
+            $html[] = app($generator)->html();
         }
 
-        return implode("\r\n", $elements);
+        return implode("\r\n", $html);
     }
 }

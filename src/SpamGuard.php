@@ -28,48 +28,23 @@ class SpamGuard
     }
 
     /**
-     * @param  array $options
+     * @param  array $elements
      * @return string
      * @throws Exceptions\SpamGuardException
      */
-    public function html($options = [])
+    public function html($elements = [])
     {
-        $elements = $this->filterElements($options);
-
         return $this->htmlGenerator->generate($elements);
     }
 
     /**
      * @param  \Illuminate\Routing\Controller $controller
      * @param  array $actions
-     * @param  array $options
+     * @param  array $middleware
      * @return void
      */
-    public function middleware($controller, $actions = [], $options = [])
+    public function middleware($controller, $actions = [], $middleware = [])
     {
-        $elements = $this->filterElements($options);
-
-        $this->middlewareAssigner->assign($controller, $elements, $actions);
-    }
-
-    /**
-     * Filter the spamguard elements by an options array.
-     *
-     * @param  array $options
-     * @return string
-     */
-    protected function filterElements($options = [])
-    {
-        $elements = Config::$elements;
-
-        if (isset($options['only'])) {
-            return $options['only'];
-        }
-
-        if (isset($options['except'])) {
-            array_forget($elements, $options['except']);
-        }
-
-        return $elements;
+        $this->middlewareAssigner->assign($controller, $actions, $middleware);
     }
 }

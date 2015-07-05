@@ -49,12 +49,12 @@ Using all spam guard elements:
 </form>
 ```
 
-Using only the spamguard honeypot:
+Specifying specific elements:
 
 ```html
 <form action="/some-route/action">
 
-    {!! SpamGuard::html(['only' => ['spam_honeypot']]) !!}
+    {!! SpamGuard::html(['spam_honeypot', 'spam_timer']) !!}
     
     <!-- other form elements -->
     
@@ -75,24 +75,25 @@ class MyController extends Controller
 }
 ```
 
-Using the helper function to assign just the honeypot middleware to only the `update` and `store` actions:
+Using the helper function to assign all spamguard middleware to only the `update` and `store` actions:
 
 ```php
 \SpamGuard::middleware($this, ['only' => ['update', 'store']]);
 ```
 
-Using the helper function to assign all SpamGuard middleware except the `spam_timer`,
-to only the `update` and `store` actions:
+Using the helper function to assign specific middleware to only the `update` and `store` actions:
 
 ```php
 \SpamGuard::middleware(
     $this,
     ['only' => ['update', 'store']],
-    ['except' => ['spam_timer']]
+    ['spam_timer', 'spam_honeypot']
 );
 ```
 
-Or you can just use middleware normally:
+Or you can just use controller middleware normally.
+
+Specifying specific middlewares:
 
 ```php
 class MyController extends Controller
@@ -104,6 +105,12 @@ class MyController extends Controller
         $this->middleware('spam_timer');
     }
 }
+```
+
+Using all spam middleware:
+
+```php
+$this->middleware('spamguard');
 ```
 
 Using the `spam_timer` middleware in a controller normally and overriding the `min_time` and `max_time` for a specific action:
