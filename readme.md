@@ -2,6 +2,8 @@
 
 Guarding form requests against bots.
 
+[![Travis](https://img.shields.io/travis/fungku/laravel-spamguard.svg?style=flat-square)](https://travis-ci.org/fungku/laravel-spamguard)  [![Version](https://img.shields.io/packagist/v/fungku/spamguard.svg?style=flat-square)](https://packagist.org/packages/fungku/spamguard)  [![Downloads](https://img.shields.io/packagist/dt/fungku/spamguard.svg?style=flat-square)](https://packagist.org/packages/fungku/spamguard)  [![License](https://img.shields.io/packagist/l/fungku/spamguard.svg?style=flat-square)](https://packagist.org/packages/fungku/spamguard)
+
 
 ## Install
 
