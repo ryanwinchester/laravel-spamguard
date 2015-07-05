@@ -1,0 +1,6 @@
+suites:
+    main:
+        namespace: Fungku\SpamGuard
+        psr4_prefix: Fungku\SpamGuard
+        src_path: src
+        spec_path: ./tests

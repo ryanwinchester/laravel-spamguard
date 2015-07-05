@@ -22,10 +22,9 @@ class SpamTimerValidator extends Validator
             return false;
         }
 
-        $timeNow = time();
-        $timeElapsed = $timeNow - $timeOpened;
+        $timeElapsed = time() - $timeOpened;
 
-        if (! is_numeric($timeOpened) || strtotime($timeOpened) === false) {
+        if (! is_numeric($timeOpened)) {
             return false;
         }
 

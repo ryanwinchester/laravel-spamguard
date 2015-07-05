@@ -14,6 +14,9 @@
         "illuminate/routing": "5.1.*",
         "illuminate/config": "5.1.*"
     },
+    "require-dev": {
+        "phpspec/phpspec": "~2.2"
+    },
     "autoload": {
         "psr-4": {
             "Fungku\\SpamGuard\\": "src/"
