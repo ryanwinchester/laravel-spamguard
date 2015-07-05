@@ -8,15 +8,14 @@ class MiddlewareAssigner
      * Register the spamguard middleware on a controller.
      *
      * @param  \Illuminate\Routing\Controller $controller
-     * @param  array $options
+     * @param  array $elements
+     * @param  array $actions
      * @return void
      */
-    public static function assign($controller, $options = [])
+    public function assign($controller, array $elements, $actions = [])
     {
-        $aliases = filter_elements($options);
-
-        foreach ($aliases as $middleware) {
-            $controller->middleware($middleware);
+        foreach ($elements as $middleware) {
+            $controller->middleware($middleware, $actions);
         }
     }
 }

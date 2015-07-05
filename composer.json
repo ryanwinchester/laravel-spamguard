@@ -15,9 +15,6 @@
         "illuminate/config": "5.1.*"
     },
     "autoload": {
-        "files": [
-            "src/Services/helpers.php"
-        ],
         "psr-4": {
             "Fungku\\SpamGuard\\": "src/"
         }

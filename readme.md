@@ -35,14 +35,14 @@ To use the spamguard, there are two things you need to do.
 
 ### 1. Add the *SpamGuard* form elements in your form
 
-Somewhere inside your form, just use the `spamguard_html()` helper function.
+Somewhere inside your form, just use `SpamGuard::html()`.
 
 Using all spam guard elements:
 
 ```html
 <form action="/some-route/action">
 
-    {!! spamguard_html() !!}
+    {!! SpamGuard::html() !!}
     
     <!-- other form elements -->
     
@@ -54,7 +54,7 @@ Using only the spamguard honeypot:
 ```html
 <form action="/some-route/action">
 
-    {!! spamguard_html(['only' => ['spam_honeypot']]) !!}
+    {!! SpamGuard::html(['only' => ['spam_honeypot']]) !!}
     
     <!-- other form elements -->
     
@@ -70,7 +70,7 @@ class MyController extends Controller
 {
     public function __construct()
     {
-        spamguard_middleware($this);
+        \SpamGuard::middleware($this);
     }
 }
 ```
@@ -78,14 +78,14 @@ class MyController extends Controller
 Using the helper function to assign just the honeypot middleware to only the `update` and `store` actions:
 
 ```php
-spamguard_middleware($this, ['only' => ['update', 'store']]);
+\SpamGuard::middleware($this, ['only' => ['update', 'store']]);
 ```
 
 Using the helper function to assign all SpamGuard middleware except the `spam_timer`,
 to only the `update` and `store` actions:
 
 ```php
-spamguard_middleware(
+\SpamGuard::middleware(
     $this,
     ['only' => ['update', 'store']],
     ['except' => ['spam_timer']]
