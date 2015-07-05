@@ -121,7 +121,11 @@ $this->middleware('spam_timer:10,300', ['only' => 'postComment']);
 
 ## Options
 
-Currently there are two spam middleware: `spam_honeypot` and `spam_timer`.
+Currently there are three spam middleware registered:
+ 
+- `spam_honeypot` 
+- `spam_timer`
+- `spamguard`: A catch-all of all the available SpamGuard middleware listed above.
 
 ## Notes
 
