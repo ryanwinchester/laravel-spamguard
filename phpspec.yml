@@ -4,3 +4,5 @@ suites:
         psr4_prefix: Fungku\SpamGuard
         src_path: src
         spec_path: ./tests
+
+formatter.name: pretty

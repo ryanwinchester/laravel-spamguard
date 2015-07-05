@@ -4,6 +4,7 @@ namespace spec\Fungku\SpamGuard\Validators;
 
 use Fungku\SpamGuard\Config;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Http\Request;
 use PhpSpec\ObjectBehavior;
@@ -102,5 +103,23 @@ class SpamTimerValidatorSpec extends ObjectBehavior
         $encrypter->decrypt($time)->willReturn($time);
 
         $this->validate($request, $params)->shouldReturn(false);
+    }
+
+    function it_fails_on_decrypt_exception(Encrypter $encrypter, Request $request)
+    {
+        $request->get('_guard_opened')->willReturn(null);
+        $encrypter->decrypt(null)->willThrow(new DecryptException());
+
+        $this->validate($request)->shouldReturn(false);
+    }
+
+    function it_fails_with_string(Encrypter $encrypter, Request $request)
+    {
+        $time = date("Y-m-d H:i:s", strtotime("30 seconds ago"));
+
+        $request->get('_guard_opened')->willReturn($time);
+        $encrypter->decrypt($time)->willReturn($time);
+
+        $this->validate($request)->shouldReturn(false);
     }
 }
