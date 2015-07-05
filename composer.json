@@ -1,6 +1,7 @@
 {
     "name": "fungku/spamguard",
-    "description": "Guarding from bots for form requests.",
+    "description": "Guarding form requests from spam bots.",
+    "keywords": ["spam", "bot", "laravel", "middleware"],
     "license": "Apache-2.0",
     "authors": [
         {

@@ -3,6 +3,7 @@
 namespace Fungku\SpamGuard\Providers;
 
 use Fungku\SpamGuard\Middleware;
+use Fungku\SpamGuard\SpamGuard;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,6 +18,8 @@ class SpamGuardServiceProvider extends ServiceProvider
 
     public function register()
     {
-        //
+        $this->app['spamguard'] = $this->app->share(function($app) {
+            return new SpamGuard();
+        });
     }
 }

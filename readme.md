@@ -9,10 +9,16 @@ Guarding form requests against bots.
 composer require fungku/spamguard
 ```
 
-Add the service provider to `config/app.php` providers array:
+Add the service provider to `config/app.php` in the `providers` array:
 
 ```php
 Fungku\SpamGuard\Providers\SpamGuardServiceProvider::class,
+```
+
+Add the alias to `config/app.php` in the `aliases` array:
+
+```php
+'SpamGuard' => Fungku\SpamGuard\Facades\SpamGuard::class,
 ```
 
 ## Config (optional)
