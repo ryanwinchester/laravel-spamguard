@@ -4,23 +4,9 @@ namespace Fungku\SpamGuard\Middleware;
 
 use Closure;
 use Fungku\SpamGuard\Config;
-use Illuminate\Routing\Redirector;
 
-class SpamGuard
+class SpamGuard extends Middleware
 {
-    /**
-     * @var Redirector
-     */
-    protected $redirector;
-
-    /**
-     * @param Redirector $redirector
-     */
-    public function __construct(Redirector $redirector)
-    {
-        $this->redirector = $redirector;
-    }
-
     /**
      * Handle an incoming request.
      *
@@ -33,12 +19,9 @@ class SpamGuard
     {
         $validators = $this->makeValidators();
 
-        foreach ($validators as $validator) {
+        foreach ($validators as $middleware => $validator) {
             if (! $validator->validate($request)) {
-                return $this->redirector
-                    ->back()
-                    ->withInput()
-                    ->withError("You're looking a little spammy");
+                return $this->failedResponse($middleware);
             }
         }
 
@@ -54,9 +37,8 @@ class SpamGuard
     {
         $validators = [];
 
-        foreach (Config::$elements as $element) {
-            $validator = '\\Fungku\\SpamGuard\\Validators\\' . camel_case($element) . 'Validator';
-            $validators[] = app($validator);
+        foreach (Config::$elements as $middleware) {
+            $validators[$middleware] = $this->makeValidator($middleware);
         }
 
         return $validators;
