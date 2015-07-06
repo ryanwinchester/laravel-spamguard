@@ -49,7 +49,7 @@ abstract class Middleware
     {
         return $this->redirector
             ->back()
-            ->withInput()
+            ->exceptInput(['_guard_pot', '_guard_opened'])
             ->withErrors($this->getErrorMessage($middleware));
     }
 
