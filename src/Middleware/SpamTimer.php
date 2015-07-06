@@ -3,7 +3,6 @@
 namespace Fungku\SpamGuard\Middleware;
 
 use Closure;
-use Fungku\SpamGuard\Exceptions\SpamException;
 use Fungku\SpamGuard\Validators\SpamTimerValidator;
 use Illuminate\Routing\Redirector;
 
