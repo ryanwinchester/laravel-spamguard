@@ -2,6 +2,7 @@
 
 namespace Fungku\SpamGuard\Middleware;
 
+use Fungku\SpamGuard\Config;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Routing\Redirector;
 
