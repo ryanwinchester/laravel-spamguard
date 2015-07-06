@@ -4,7 +4,6 @@ namespace Fungku\SpamGuard\Middleware;
 
 use Closure;
 use Fungku\SpamGuard\Config;
-use Fungku\SpamGuard\Exceptions\SpamException;
 use Illuminate\Routing\Redirector;
 
 class SpamGuard
@@ -28,7 +27,7 @@ class SpamGuard
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure $next
      * @return mixed
-     * @throws SpamException
+     * @throws \Fungku\SpamGuard\Exceptions\SpamException
      */
     public function handle($request, Closure $next)
     {
