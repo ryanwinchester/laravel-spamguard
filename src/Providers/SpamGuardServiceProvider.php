@@ -19,8 +19,8 @@ class SpamGuardServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app['spamguard'] = $this->app->share(function($app) {
-            return $app->make(SpamGuard::class);
+        $this->app['spamguard'] = $this->app->share(function() {
+            return $this->app->make(SpamGuard::class);
         });
     }
 }
