@@ -2,13 +2,13 @@
 
 namespace Fungku\SpamGuard\Validators;
 
-use Illuminate\Contracts\Config\Repository;
+use Fungku\SpamGuard\Config;
 use Illuminate\Contracts\Encryption\Encrypter;
 
 abstract class Validator
 {
     /**
-     * @var Repository
+     * @var Config
      */
     protected $config;
 
@@ -18,10 +18,10 @@ abstract class Validator
     protected $encrypter;
 
     /**
-     * @param Repository $config
+     * @param Config $config
      * @param Encrypter $encrypter
      */
-    public function __construct(Repository $config, Encrypter $encrypter)
+    public function __construct(Config $config, Encrypter $encrypter)
     {
         $this->config = $config;
         $this->encrypter = $encrypter;

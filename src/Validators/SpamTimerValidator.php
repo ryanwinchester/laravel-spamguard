@@ -2,11 +2,15 @@
 
 namespace Fungku\SpamGuard\Validators;
 
-use Fungku\SpamGuard\Config;
 use Illuminate\Contracts\Encryption\DecryptException;
 
 class SpamTimerValidator extends Validator
 {
+    /**
+     * @var array
+     */
+    protected $params;
+
     /**
      * Validate the request.
      *
@@ -16,23 +20,22 @@ class SpamTimerValidator extends Validator
      */
     public function validate($request, $params = [])
     {
+        $this->params = $params;
+
         try {
             $timeOpened = $this->encrypter->decrypt($request->get('_guard_opened'));
         } catch (DecryptException $e) {
             return false;
         }
 
-        $timeElapsed = time() - $timeOpened;
-
         if (! is_numeric($timeOpened)) {
             return false;
         }
 
-        $minTime = $this->getMinTime($params);
-        $maxTime = $this->getMaxTime($params);
+        $timeElapsed = time() - $timeOpened;
 
-        $tooFast = $timeElapsed < $minTime;
-        $tooSlow = $timeElapsed > $maxTime;
+        $tooFast = $timeElapsed < $this->getMinTime();
+        $tooSlow = $timeElapsed > $this->getMaxTime();
 
         return  !$tooFast && !$tooSlow;
     }
@@ -40,30 +43,28 @@ class SpamTimerValidator extends Validator
     /**
      * Get the min time to use.
      *
-     * @param array $params
      * @return int
      */
-    private function getMinTime($params = [])
+    private function getMinTime()
     {
-        if (isset($params['min_time'])) {
-            return $params['min_time'];
+        if (isset($this->params['min_time'])) {
+            return $this->params['min_time'];
         }
 
-        return $this->config->get('spamguard.default_min_time', Config::DEFAULT_MIN_TIME);
+        return $this->config->getDefaultMinTime();
     }
 
     /**
      * Get the max time to use.
      *
-     * @param array $params
      * @return int
      */
-    private function getMaxTime($params = [])
+    private function getMaxTime()
     {
-        if (isset($params['max_time'])) {
-            return $params['max_time'];
+        if (isset($this->params['max_time'])) {
+            return $this->params['max_time'];
         }
 
-        return $this->config->get('spamguard.default_max_time', Config::DEFAULT_MAX_TIME);
+        return $this->config->getDefaultMaxTime();
     }
 }

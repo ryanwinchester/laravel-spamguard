@@ -2,6 +2,8 @@
 
 namespace Fungku\SpamGuard;
 
+use Illuminate\Contracts\Config\Repository;
+
 class Config
 {
     /**
@@ -30,4 +32,33 @@ class Config
      */
     const DEFAULT_MIN_TIME = 5;
     const DEFAULT_MAX_TIME = 3600;
+
+    /**
+     * @var Repository
+     */
+    protected $config;
+
+    /**
+     * @param Repository $config
+     */
+    public function __construct(Repository $config)
+    {
+        $this->config = $config;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDefaultMinTime()
+    {
+        return $this->config->get("spamguard.min_time", static::DEFAULT_MIN_TIME);
+    }
+
+    /**
+     * @return int
+     */
+    public function getDefaultMaxTime()
+    {
+        return $this->config->get("spamguard.max_time", static::DEFAULT_MAX_TIME);
+    }
 }

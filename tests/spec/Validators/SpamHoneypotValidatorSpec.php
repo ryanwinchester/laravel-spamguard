@@ -2,7 +2,7 @@
 
 namespace spec\Fungku\SpamGuard\Validators;
 
-use Illuminate\Contracts\Config\Repository;
+use Fungku\SpamGuard\Config;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Http\Request;
 use PhpSpec\ObjectBehavior;
@@ -10,7 +10,7 @@ use Prophecy\Argument;
 
 class SpamHoneypotValidatorSpec extends ObjectBehavior
 {
-    function let(Repository $config, Encrypter $encrypter)
+    function let(Config $config, Encrypter $encrypter)
     {
         $this->beConstructedWith($config, $encrypter);
     }

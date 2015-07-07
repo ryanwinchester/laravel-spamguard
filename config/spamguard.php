@@ -13,7 +13,7 @@ return [
     /**
      * The default times used by the spam_timer middleware validation.
      */
-    'default_min_time' => 5,
-    'default_max_time' => 3600,
+    'min_time' => 5,
+    'max_time' => 3600,
 
 ];

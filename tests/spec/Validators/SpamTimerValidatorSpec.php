@@ -3,7 +3,6 @@
 namespace spec\Fungku\SpamGuard\Validators;
 
 use Fungku\SpamGuard\Config;
-use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Http\Request;
@@ -12,10 +11,10 @@ use Prophecy\Argument;
 
 class SpamTimerValidatorSpec extends ObjectBehavior
 {
-    function let(Repository $config, Encrypter $encrypter)
+    function let(Config $config, Encrypter $encrypter)
     {
-        $config->get('spamguard.default_min_time', Config::DEFAULT_MIN_TIME)->willReturn(5);
-        $config->get('spamguard.default_max_time', Config::DEFAULT_MAX_TIME)->willReturn(3600);
+        $config->getDefaultMinTime()->willReturn(5);
+        $config->getDefaultMaxTime()->willReturn(3600);
 
         $this->beConstructedWith($config, $encrypter);
     }
