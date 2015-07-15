@@ -141,3 +141,5 @@ middleware you assign to the routes.
 
 I will look into adding some more baked-in goodness, like Akismet or something else in the future if anyone other than
 myself ends up using this package (or maybe I will do it anyway).
+
+
