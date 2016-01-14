@@ -44,7 +44,7 @@ abstract class Middleware
      */
     protected function makeValidator($middleware)
     {
-        $validator = '\\Fungku\\SpamGuard\\Validators\\' . camel_case($middleware) . 'Validator';
+        $validator = '\\Fungku\\SpamGuard\\Validators\\' . ucfirst(camel_case($middleware)) . 'Validator';
 
         return app($validator);
     }
