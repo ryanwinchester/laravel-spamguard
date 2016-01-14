@@ -4,6 +4,7 @@ namespace Fungku\SpamGuard\Middleware;
 
 use Fungku\SpamGuard\Config;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Routing\Redirector;
 
 abstract class Middleware
@@ -14,17 +15,24 @@ abstract class Middleware
     protected $config;
 
     /**
+     * @var ResponseFactory
+     */
+    var $response;
+
+    /**
      * @var Redirector
      */
     protected $redirector;
 
     /**
-     * @param Repository $config
-     * @param Redirector $redirector
+     * @param Repository      $config
+     * @param ResponseFactory $response
+     * @param Redirector      $redirector
      */
-    public function __construct(Repository $config, Redirector $redirector)
+    public function __construct(Repository $config, ResponseFactory $response, Redirector $redirector)
     {
         $this->config = $config;
+        $this->response = $response;
         $this->redirector = $redirector;
     }
 
@@ -43,13 +51,18 @@ abstract class Middleware
 
     /**
      * @param  string $middleware
+     * @param  bool   $isAjax
      * @return \Illuminate\Http\RedirectResponse
      */
-    protected function failedResponse($middleware)
+    protected function failedResponse($middleware, $isAjax = false)
     {
+        if ($isAjax) {
+            return $this->response->make("Looks spammy.", 403);
+        }
+
         return $this->redirector
             ->back()
-            ->exceptInput(['_guard_pot', '_guard_opened'])
+            ->exceptInput('_guard_pot', '_guard_opened')
             ->withErrors($this->getErrorMessage($middleware));
     }
 

@@ -21,7 +21,7 @@ class SpamGuard extends Middleware
 
         foreach ($validators as $middleware => $validator) {
             if (! $validator->validate($request)) {
-                return $this->failedResponse($middleware);
+                return $this->failedResponse($middleware, $request->ajax());
             }
         }
 

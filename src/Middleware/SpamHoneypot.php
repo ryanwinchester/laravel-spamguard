@@ -19,7 +19,7 @@ class SpamHoneypot extends Middleware
         $validator = $this->makeValidator('spam_honeypot');
 
         if (! $validator->validate($request)) {
-            return $this->failedResponse('spam_honeypot');
+            return $this->failedResponse('spam_honeypot', $request->ajax());
         }
 
         return $next($request);

@@ -24,7 +24,7 @@ class SpamTimer extends Middleware
         ];
 
         if (! $validator->validate($request, $params)) {
-            return $this->failedResponse('spam_timer');
+            return $this->failedResponse('spam_timer', $request->ajax());
         }
 
         return $next($request);
