@@ -19,7 +19,7 @@ class HtmlGenerator
         $html = [];
 
         foreach ($elements as $element) {
-            $generator = '\\Fungku\\SpamGuard\\Html\\' . camel_case($element);
+            $generator = '\\Fungku\\SpamGuard\\Html\\' . ucfirst(camel_case($element));
 
             if (! (new \ReflectionClass($generator))->isInstantiable()) {
                 throw new SpamGuardException("Target class [$generator] is not instantiable.");
