@@ -57,7 +57,7 @@ abstract class Middleware
     protected function failedResponse($middleware, $isAjax = false)
     {
         if ($isAjax) {
-            return $this->response->make("Looks spammy.", 403);
+            return $this->response->make($this->getErrorMessage($middleware), 403);
         }
 
         return $this->redirector
