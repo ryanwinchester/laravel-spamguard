@@ -15,6 +15,7 @@ class SpamGuardServiceProvider extends ServiceProvider
         $router->middleware('spamguard', Middleware\SpamGuard::class);
         $router->middleware('spam_honeypot', Middleware\SpamHoneypot::class);
         $router->middleware('spam_timer', Middleware\SpamTimer::class);
+        $router->middleware('spam_recaptcha', Middleware\SpamRecaptcha::class);
     }
 
     public function register()

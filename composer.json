@@ -12,7 +12,8 @@
     "require": {
         "php": ">=5.5.9",
         "illuminate/routing": "5.1.*",
-        "illuminate/config": "5.1.*"
+        "illuminate/config": "5.1.*",
+        "google/recaptcha": "~1.1"
     },
     "require-dev": {
         "phpspec/phpspec": "~2.2"

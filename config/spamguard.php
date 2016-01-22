@@ -2,7 +2,7 @@
 
 return [
 
-    /**
+    /*
      * The error messages to use with failed middleware validation.
      */
     'messages' => [
@@ -10,10 +10,18 @@ return [
         'spam_timer'    => 'Please, not too fast or not too slow. There is a happy medium.',
     ],
 
-    /**
+    /*
      * The default times used by the spam_timer middleware validation.
      */
     'min_time' => 5,
     'max_time' => 3600,
+
+    /*
+     * The Recaptcha keys.
+     */
+    'recaptcha' => [
+        'site_key' => env('RECAPTCHA_SITE_KEY'),
+        'secret' => env('RECAPTCHA_SECRET'),
+    ],
 
 ];

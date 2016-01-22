@@ -15,6 +15,7 @@ class Config
     public static $elements = [
         'spam_honeypot',
         'spam_timer',
+        'spam_recaptcha',
     ];
 
     /**
@@ -25,6 +26,7 @@ class Config
     public static $messages = [
         'spam_honeypot' => 'I guess the honey was just too sweet for you.',
         'spam_timer'    => 'Please, not too fast or not too slow. There is a happy medium.',
+        'spam_recaptcha' => 'Please look more human.',
     ];
 
     /**
@@ -60,5 +62,13 @@ class Config
     public function getDefaultMaxTime()
     {
         return $this->config->get("spamguard.max_time", static::DEFAULT_MAX_TIME);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getRecaptchaSecret()
+    {
+        return $this->config->get("spamguard.recaptcha.secret");
     }
 }
