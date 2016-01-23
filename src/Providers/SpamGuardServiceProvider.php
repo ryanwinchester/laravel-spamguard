@@ -16,6 +16,10 @@ class SpamGuardServiceProvider extends ServiceProvider
         $router->middleware('spam_honeypot', Middleware\SpamHoneypot::class);
         $router->middleware('spam_timer', Middleware\SpamTimer::class);
         $router->middleware('spam_recaptcha', Middleware\SpamRecaptcha::class);
+
+        $this->publishes([
+            __DIR__.'/../../config/spamguard.php' => config_path('spamguard.php'),
+        ], 'config');
     }
 
     public function register()
@@ -23,5 +27,7 @@ class SpamGuardServiceProvider extends ServiceProvider
         $this->app->bind('spamguard', function() {
             return $this->app->make(SpamGuard::class);
         });
+
+        $this->mergeConfigFrom(__DIR__.'/../../config/spamguard.php', 'spamguard');
     }
 }
