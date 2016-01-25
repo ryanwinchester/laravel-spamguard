@@ -19,7 +19,7 @@ class SpamRecaptchaValidator extends Validator
 
         $response = $recaptcha->verify(
             $request->get('g-recaptcha-response'),
-            $request->server('REMOTE_IP')
+            $request->server('REMOTE_ADDR')
         );
 
         if (! $response->isSuccess()) {
