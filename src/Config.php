@@ -25,7 +25,7 @@ class Config
      */
     public static $messages = [
         'spam_honeypot' => 'I guess the honey was just too sweet for you.',
-        'spam_timer'    => 'Please, not too fast or not too slow. There is a happy medium.',
+        'spam_timer' => 'Please, not too fast or not too slow. There is a happy medium.',
         'spam_recaptcha' => 'Please look more human.',
     ];
 
