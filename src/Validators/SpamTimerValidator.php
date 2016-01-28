@@ -2,14 +2,36 @@
 
 namespace Fungku\SpamGuard\Validators;
 
+use Fungku\SpamGuard\Config;
 use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Contracts\Encryption\Encrypter;
 
 class SpamTimerValidator extends Validator
 {
     /**
+     * @var Config
+     */
+    protected $config;
+
+    /**
+     * @var Encrypter
+     */
+    protected $encrypter;
+
+    /**
      * @var array
      */
     protected $params;
+
+    /**
+     * @param Config $config
+     * @param Encrypter $encrypter
+     */
+    public function __construct(Config $config, Encrypter $encrypter)
+    {
+        $this->config = $config;
+        $this->encrypter = $encrypter;
+    }
 
     /**
      * Validate the request.

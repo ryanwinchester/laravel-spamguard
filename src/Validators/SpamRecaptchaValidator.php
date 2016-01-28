@@ -7,6 +7,19 @@ use ReCaptcha\ReCaptcha;
 class SpamRecaptchaValidator extends Validator
 {
     /**
+     * @var \ReCaptcha\ReCaptcha
+     */
+    protected $recaptcha;
+
+    /**
+     * @param ReCaptcha $recaptcha
+     */
+    public function __construct(Recaptcha $recaptcha)
+    {
+        $this->recaptcha = $recaptcha;
+    }
+
+    /**
      * Validate the request.
      *
      * @param  \Illuminate\Http\Request $request
@@ -15,9 +28,7 @@ class SpamRecaptchaValidator extends Validator
      */
     public function validate($request, $params = [])
     {
-        $recaptcha = new ReCaptcha($this->config->getRecaptchaSecret());
-
-        $response = $recaptcha->verify(
+        $response = $this->recaptcha->verify(
             $request->get('g-recaptcha-response'),
             $this->getIPFromRequest($request)
         );

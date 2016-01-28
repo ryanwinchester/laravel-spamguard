@@ -10,11 +10,6 @@ use Prophecy\Argument;
 
 class SpamHoneypotValidatorSpec extends ObjectBehavior
 {
-    function let(Config $config, Encrypter $encrypter)
-    {
-        $this->beConstructedWith($config, $encrypter);
-    }
-
     function it_is_initializable()
     {
         $this->shouldHaveType('Fungku\SpamGuard\Validators\SpamHoneypotValidator');

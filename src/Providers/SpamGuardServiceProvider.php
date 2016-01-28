@@ -24,10 +24,14 @@ class SpamGuardServiceProvider extends ServiceProvider
 
     public function register()
     {
+        $this->mergeConfigFrom(__DIR__.'/../../config/spamguard.php', 'spamguard');
+
         $this->app->bind('spamguard', function() {
             return $this->app->make(SpamGuard::class);
         });
 
-        $this->mergeConfigFrom(__DIR__.'/../../config/spamguard.php', 'spamguard');
+        $this->app->bind(\Recaptcha\Recaptcha::class, function ($app) {
+            return new \Recaptcha\Recaptcha($app->config->get('spamguard.recaptcha.secret'));
+        });
     }
 }

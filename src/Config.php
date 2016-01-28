@@ -71,4 +71,12 @@ class Config
     {
         return $this->config->get("spamguard.recaptcha.secret");
     }
+
+    /**
+     * @return string|null
+     */
+    public function getRecaptchaSiteKey()
+    {
+        return $this->config->get("spamguard.recaptcha.site_key");
+    }
 }

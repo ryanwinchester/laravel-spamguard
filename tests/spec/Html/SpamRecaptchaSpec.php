@@ -7,7 +7,7 @@ use Illuminate\Contracts\Encryption\Encrypter;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class SpamHoneypotSpec extends ObjectBehavior
+class SpamRecaptchaSpec extends ObjectBehavior
 {
     function let(Config $config, Encrypter $encrypter)
     {
@@ -16,12 +16,14 @@ class SpamHoneypotSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Fungku\SpamGuard\Html\SpamHoneypot');
+        $this->shouldHaveType('Fungku\SpamGuard\Html\SpamRecaptcha');
     }
 
-    function it_returns_the_honeypot_html()
+    function it_returns_the_recaptcha_html(Config $config, Encrypter $encrypter)
     {
-        $html = require __DIR__ . "/../../../src/Html/templates/honeypot.php";
+        $site_key = '1234567890';
+        $config->getRecaptchaSiteKey()->willReturn($site_key);
+        $html = require __DIR__ . "/../../../src/Html/templates/recaptcha.php";
 
         $this->html()->shouldReturn($html);
     }

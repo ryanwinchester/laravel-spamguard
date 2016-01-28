@@ -2,15 +2,16 @@
 
 namespace spec\Fungku\SpamGuard\Html;
 
+use Fungku\SpamGuard\Config;
 use Illuminate\Contracts\Encryption\Encrypter;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 class SpamTimerSpec extends ObjectBehavior
 {
-    function let(Encrypter $encrypter)
+    function let(Config $config, Encrypter $encrypter)
     {
-        $this->beConstructedWith($encrypter);
+        $this->beConstructedWith($config, $encrypter);
     }
 
     function it_is_initializable()
