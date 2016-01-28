@@ -30,6 +30,7 @@ class SpamHoneypotValidatorSpec extends ObjectBehavior
     function it_fails_when_honeypot_set(Request $request)
     {
         $request->has('_guard_pot')->willReturn(true);
+        $request->get('_guard_pot')->willReturn('something');
 
         $this->validate($request)->shouldReturn(false);
     }
