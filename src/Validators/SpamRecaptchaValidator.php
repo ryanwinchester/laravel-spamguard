@@ -19,9 +19,21 @@ class SpamRecaptchaValidator extends Validator
 
         $response = $recaptcha->verify(
             $request->get('g-recaptcha-response'),
-            $request->server('REMOTE_ADDR')
+            $this->getIPFromRequest($request)
         );
 
         return $response->isSuccess();
+    }
+
+    /**
+     * Get the client's IP address.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return string
+     */
+    private function getIPFromRequest($request)
+    {
+        return $request->server('HTTP_X_FORWARDED_FOR')
+            ?: $request->server('REMOTE_ADDR');
     }
 }
