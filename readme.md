@@ -48,9 +48,9 @@ Using all spam guard elements:
 <form action="/some-route/action">
 
     {!! SpamGuard::html() !!}
-    
+
     <!-- other form elements -->
-    
+
 </form>
 ```
 
@@ -59,10 +59,10 @@ Specifying specific elements:
 ```html
 <form action="/some-route/action">
 
-    {!! SpamGuard::html(['spam_honeypot', 'spam_timer']) !!}
-    
+    {!! SpamGuard::html(['spam_honeypot', 'spam_timer', 'spam_recaptcha']) !!}
+
     <!-- other form elements -->
-    
+
 </form>
 ```
 
@@ -106,8 +106,8 @@ class MyController extends Controller
     public function __construct()
     {
         $this->middleware('spam_honeypot');
-        
         $this->middleware('spam_timer');
+        $this->middleware('spam_recaptcha');
     }
 }
 ```
@@ -126,20 +126,14 @@ $this->middleware('spam_timer:10,300', ['only' => 'postComment']);
 
 ## Options
 
-Currently there are three spam middleware registered:
- 
-- `spam_honeypot` 
+Currently there are four spam middleware registered:
+
+- `spam_honeypot`
 - `spam_timer`
+- `spam_recaptcha`
 - `spamguard`: A catch-all of all the available SpamGuard middleware listed above.
 
 ## Notes
 
 If you are selectively using elements and middleware, please note that the elements you use must match up with the
 middleware you assign to the routes.
-
-## Plans
-
-I will look into adding some more baked-in goodness, like Akismet or something else in the future if anyone other than
-myself ends up using this package (or maybe I will do it anyway).
-
-
