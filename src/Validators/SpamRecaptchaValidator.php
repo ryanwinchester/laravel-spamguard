@@ -22,10 +22,6 @@ class SpamRecaptchaValidator extends Validator
             $request->server('REMOTE_ADDR')
         );
 
-        if (! $response->isSuccess()) {
-            return false;
-        }
-
-        return true;
+        return $response->isSuccess();
     }
 }
