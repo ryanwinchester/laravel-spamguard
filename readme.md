@@ -68,36 +68,6 @@ Specifying specific elements:
 
 ### 2. Add the *SpamGuard* middleware to your route or controller
 
-Using the helper function to assign all spam middleware to all actions:
-
-```php
-class MyController extends Controller
-{
-    public function __construct()
-    {
-        \SpamGuard::middleware($this);
-    }
-}
-```
-
-Using the helper function to assign all spamguard middleware to only the `update` and `store` actions:
-
-```php
-\SpamGuard::middleware($this, ['only' => ['update', 'store']]);
-```
-
-Using the helper function to assign specific middleware to only the `update` and `store` actions:
-
-```php
-\SpamGuard::middleware(
-    $this,
-    ['only' => ['update', 'store']],
-    ['spam_timer', 'spam_honeypot']
-);
-```
-
-Or you can just use controller middleware normally.
-
 Specifying specific middlewares:
 
 ```php
